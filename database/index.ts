@@ -1,6 +1,5 @@
 import mysql from "mysql";
-import { sql } from "../config";
-import { db_keys } from "../config";
+import { sql, db_keys } from "../config";
 
 const pools = mysql.createPoolCluster();
 Object.keys(sql).forEach((db_key) => pools.add(db_key, sql[db_key]));

@@ -5,7 +5,7 @@ import loginRouter from "./auth/login";
 
 const indexRouter = express.Router();
 
-indexRouter.use("/register", authRouter);
+indexRouter.use("/auth", authRouter);
 indexRouter.use("/api", apiRouter);
 indexRouter.use("/login", loginRouter);
 

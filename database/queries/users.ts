@@ -1,9 +1,9 @@
 import { Query } from "..";
 import { BaseUser, User, UserLocatableColumns } from "../../types/models";
 
-const register = (newUser: BaseUser) => Query("INSERT INTO Users SET ?", "auth", [newUser]);
+const register = (newUser: BaseUser) => Query("INSERT INTO Users SET ?", "megaauth", [newUser]);
 const find = (column: UserLocatableColumns, value: string) =>
-  Query<User[]>("SELECT * FROM Users WHERE ??=?", "auth", [column, value]);
+  Query<User[]>("SELECT * FROM Users WHERE ??=?", "megaauth", [column, value]);
 
 export default {
   register,
