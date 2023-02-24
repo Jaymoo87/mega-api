@@ -25,5 +25,8 @@ export const isEmail = (email: string) => {
 export const isEmailFormat = (email: string, res: Response) => {
   if (!isEmail(email)) {
     res.status(400).json({ message: "your username cannot be an email address" });
+    return true;
+  } else {
+    return false;
   }
 };

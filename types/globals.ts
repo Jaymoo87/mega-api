@@ -1,10 +1,10 @@
-import { User as Iuser, UserRoles } from "./models";
+import { UserRoles } from "./models";
 
 export {};
 
 declare global {
   namespace Express {
-    interface User extends Iuser {}
+    interface User extends Payload {}
   }
 }
 

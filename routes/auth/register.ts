@@ -7,17 +7,19 @@ import { hasMissingData, isEmail, isEmailFormat } from "../../utils/validators";
 import users from "../../database/queries/users";
 import { hash } from "../../utils/bcrypt";
 import { sign } from "../../utils/token";
+import { Response } from "express-serve-static-core";
 
 const registerRouter = express.Router();
 
 registerRouter.post("/", async (req, res) => {
   const { name, email, username, password } = req.body;
   const newUser = { name, email, username, password };
+  console.log(newUser);
   hasMissingData(newUser, res);
   const hashed = await hash(password);
 
   if (hasMissingData(newUser, res)) return;
-  // if(!isEmailFormat(email, res)) return;
+  if (!isEmailFormat(email, res)) return;
   // if(!isUserNameFormat(newUser, res)) return
 
   try {
@@ -36,3 +38,9 @@ registerRouter.post("/", async (req, res) => {
 });
 
 export default registerRouter;
+function isUserNameFormat(
+  newUser: { name: any; email: any; username: any; password: any },
+  res: Response<any, Record<string, any>, number>
+) {
+  throw new Error("Function not implemented.");
+}
