@@ -1,9 +1,9 @@
 import passport from "passport";
 import LocalStrategy from "passport-local";
 import { Express } from "express";
-import users from "../database/queries/users";
-import { User, UserLocatableColumns } from "../types/models";
-import { compare } from "../utils/bcrypt";
+import users from "../../database/queries/users";
+import { User, UserLocatableColumns } from "../../types/models";
+import { compare } from "../../utils/bcrypt";
 import JWTStrategy, { ExtractJwt } from "passport-jwt";
 import { token } from "../config";
 
