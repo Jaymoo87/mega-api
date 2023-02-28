@@ -3,7 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import compression from "compression";
-import indexRouter from "../../routes";
+import indexRouter from "../routes";
 
 export default function configure(app: Express) {
   app.use(helmet());

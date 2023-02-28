@@ -2,12 +2,11 @@ import express from "express";
 
 import { MysqlError } from "mysql";
 import { v4 } from "uuid";
-import { hasMissingData, isEmail, isEmailFormat } from "../../utils/validators";
+import { hasMissingData, isEmailFormat, isUserNameFormat } from "../../utils/validators";
 
 import users from "../../database/queries/users";
 import { hash } from "../../utils/bcrypt";
 import { sign } from "../../utils/token";
-// import { Response } from "express-serve-static-core";
 
 const registerRouter = express.Router();
 
@@ -17,9 +16,9 @@ registerRouter.post("/", async (req, res) => {
   console.log(newUser);
   hasMissingData(newUser, res);
 
-  // if (hasMissingData(newUser, res)) return;
-  // if (!isEmailFormat(email, res)) return;
-  // if(!isUserNameFormat(newUser, res)) return
+  if (hasMissingData(newUser, res)) return;
+  if (!isEmailFormat(email, res)) return;
+  if (!isUserNameFormat(username, res)) return;
 
   try {
     const id = v4();
@@ -27,8 +26,8 @@ registerRouter.post("/", async (req, res) => {
 
     await users.register({ id, ...newUser });
 
-    // const token = sign({ id, email, name, roles: ["user"] });
-    res.status(201).json({ id, message: "Registered successfully" });
+    const token = sign({ id, email, name, roles: ["user"] });
+    res.status(201).json({ id, message: "Registered successfully", token });
   } catch (error) {
     console.log(error);
     const err = error as unknown as MysqlError;
@@ -37,6 +36,7 @@ registerRouter.post("/", async (req, res) => {
 });
 
 export default registerRouter;
+
 // function isUserNameFormat(
 //   newUser: { name: any; email: any; username: any; password: any },
 //   res: Response<any, Record<string, any>, number>

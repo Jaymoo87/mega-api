@@ -1,4 +1,4 @@
-import { UserRoles } from "./models";
+import { UserRoles } from "./models/auth";
 
 export {};
 
