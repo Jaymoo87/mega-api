@@ -9,7 +9,7 @@ export interface DBConfig {
   database: string;
 }
 
-export type db_keys = "megaauth" | "pets" | "todo";
+export type db_keys = "auth" | "pets" | "todo";
 
 export const sql = {
   auth: {

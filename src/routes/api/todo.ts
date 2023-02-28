@@ -36,12 +36,13 @@ todoRouter.post("/", async (req, res) => {
 
 todoRouter.put("/:id", async (req, res) => {
   const id = req.params.id;
-  const { content, userid } = req.body;
+  const { content } = req.body;
   if (!req.user) return res.status(401).json({ message: "Unable to auathenticate user" });
   if (hasMissingData({ content }, res)) return;
 
   try {
-    await Items.updateContent(content, userid, id);
+    // const itemToUpdate = { content, userid: req.user.id, id };
+    await Items.updateContent(content, req.user.id, id);
     res.status(201).json({ message: "content updated" });
   } catch (error) {
     console.log(error);

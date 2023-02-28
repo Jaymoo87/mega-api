@@ -14,7 +14,7 @@ registerRouter.post("/", async (req, res) => {
   const { name, email, username, password } = req.body;
   const newUser = { name, email, username, password };
   console.log(newUser);
-  hasMissingData(newUser, res);
+  // hasMissingData(newUser, res);
 
   if (hasMissingData(newUser, res)) return;
   if (!isEmailFormat(email, res)) return;
@@ -23,11 +23,11 @@ registerRouter.post("/", async (req, res) => {
   try {
     const id = v4();
     newUser.password = await hash(password);
+    const token = sign({ id, email, name, roles: ["user"] });
 
     await users.register({ id, ...newUser });
 
-    const token = sign({ id, email, name, roles: ["user"] });
-    res.status(201).json({ id, message: "Registered successfully", token });
+    res.status(201).json({ message: "Registered successfully", token });
   } catch (error) {
     console.log(error);
     const err = error as unknown as MysqlError;
