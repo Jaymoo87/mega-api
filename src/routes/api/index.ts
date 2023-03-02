@@ -8,6 +8,6 @@ apiRouter.get("/wow", passport.authenticate("jwt", { session: false }), (req, re
   res.json({ message: "Nice!" });
 });
 
-apiRouter.use("/todo", todoRouter);
+apiRouter.use("/todo", passport.authenticate("jwt", { session: false }), todoRouter);
 
 export default apiRouter;

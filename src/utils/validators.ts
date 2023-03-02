@@ -7,12 +7,14 @@ interface ReqBod {
 export const hasMissingData = (data: ReqBod, res: Response) => {
   const entries = Object.entries(data);
 
-  if (Object.values(data).some((val) => val === undefined)) {
-    const missingProperties = Object.values;
+  const missingProperties = entries.filter((pair) => pair[1] === undefined);
 
-    res.status(400).json({ message: "missing some info" });
+  if (missingProperties.length) {
+    const properties = missingProperties.map((pair) => pair[0]);
+    res.status(400).json({ message: "missing some info", missingData: properties });
     return true;
   }
+
   return false;
 };
 
@@ -24,7 +26,7 @@ export const isEmail = (email: string) => {
 
 export const isEmailFormat = (email: string, res: Response) => {
   if (!isEmail(email)) {
-    res.status(400).json({ message: "your  email addres isnt quite right" });
+    res.status(400).json({ message: "your email address isnt quite right" });
     return true;
   } else {
     return false;

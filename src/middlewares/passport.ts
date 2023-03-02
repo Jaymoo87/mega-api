@@ -1,11 +1,12 @@
+import { Express } from "express";
 import passport from "passport";
 import LocalStrategy from "passport-local";
-import { Express } from "express";
+import JWTStrategy, { ExtractJwt } from "passport-jwt";
+
 import users from "../database/queries/users";
 import { UserLocatableColumns } from "../types/models/auth";
-import { compare } from "../utils/bcrypt";
-import JWTStrategy, { ExtractJwt } from "passport-jwt";
 import { token } from "../config";
+import { compare } from "../utils/bcrypt";
 
 export const configurePassport = async (app: Express) => {
   passport.use(
@@ -40,6 +41,7 @@ export const configurePassport = async (app: Express) => {
           delete user.password;
           done(null, false);
         }
+        done(null, user);
       }
     )
   );

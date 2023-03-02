@@ -13,12 +13,12 @@ const registerRouter = express.Router();
 registerRouter.post("/", async (req, res) => {
   const { name, email, username, password } = req.body;
   const newUser = { name, email, username, password };
-  console.log(newUser);
-  // hasMissingData(newUser, res);
+  hasMissingData(newUser, res);
 
-  if (hasMissingData(newUser, res)) return;
-  if (!isEmailFormat(email, res)) return;
-  if (!isUserNameFormat(username, res)) return;
+  // if (hasMissingData(newUser, res)) return;
+  // if (!isEmailFormat(email, res)) return;
+  // if (!isUserNameFormat(username, res)) return;
+  console.log(newUser);
 
   try {
     const id = v4();
@@ -27,7 +27,7 @@ registerRouter.post("/", async (req, res) => {
 
     await users.register({ id, ...newUser });
 
-    res.status(201).json({ message: "Registered successfully", token });
+    return res.status(201).json({ id, message: "Registered successfully", token });
   } catch (error) {
     console.log(error);
     const err = error as unknown as MysqlError;
