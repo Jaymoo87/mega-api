@@ -2,13 +2,22 @@ import { Express } from "express";
 import passport from "passport";
 import LocalStrategy from "passport-local";
 import JWTStrategy, { ExtractJwt } from "passport-jwt";
+import { isEmail } from "../utils/validators";
 
 import users from "../database/queries/users";
-import { UserLocatableColumns } from "../types/models/auth";
+import { User, UserLocatableColumns } from "../types/models/auth";
+
 import { token } from "../config";
 import { compare } from "../utils/bcrypt";
 
 export const configurePassport = async (app: Express) => {
+  passport.serializeUser((user: User, done) => {
+    if (user.password) {
+      delete user.password;
+    }
+    done(null, user);
+  });
+
   passport.use(
     new JWTStrategy.Strategy(
       {
@@ -41,7 +50,6 @@ export const configurePassport = async (app: Express) => {
           delete user.password;
           done(null, false);
         }
-        done(null, user);
       }
     )
   );

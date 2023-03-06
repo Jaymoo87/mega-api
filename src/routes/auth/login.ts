@@ -10,7 +10,9 @@ loginRouter.post("/", passport.authenticate("local", { session: false }), (req, 
   res.json({ message: "hey hey", token });
 
   try {
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 });
 
 export default loginRouter;

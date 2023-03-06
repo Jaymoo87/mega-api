@@ -36,6 +36,8 @@ export const sql = {
 } as { [key: string]: DBConfig };
 
 if (!process.env.TOKEN_KEY) {
+  console.log("fail");
+  process.exit(1);
 }
 
 export const token = {

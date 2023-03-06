@@ -13,12 +13,11 @@ const registerRouter = express.Router();
 registerRouter.post("/", async (req, res) => {
   const { name, email, username, password } = req.body;
   const newUser = { name, email, username, password };
-  hasMissingData(newUser, res);
 
+  console.log(newUser);
   // if (hasMissingData(newUser, res)) return;
   // if (!isEmailFormat(email, res)) return;
   // if (!isUserNameFormat(username, res)) return;
-  console.log(newUser);
 
   try {
     const id = v4();
