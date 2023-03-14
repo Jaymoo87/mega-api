@@ -27,17 +27,17 @@ export const isEmail = (email: string) => {
 export const isEmailFormat = (email: string, res: Response) => {
   if (!isEmail(email)) {
     res.status(400).json({ message: "your email address isnt quite right" });
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
 };
 
 export const isUserNameFormat = (username: string, res: Response) => {
   if (isEmail(username)) {
     res.status(400).json({ message: "your username cannot be an email address" });
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
 };

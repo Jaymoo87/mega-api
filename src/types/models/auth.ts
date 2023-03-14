@@ -1,6 +1,6 @@
 export type UserRoles = "user" | "admin";
 
-export type UserLocatableColumns = "id" | "username" | "email" | "";
+export type UserLocatableColumns = "id" | "username" | "email";
 
 export interface User extends BaseUser {
   created_at: string | Date;

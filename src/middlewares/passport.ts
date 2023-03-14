@@ -1,5 +1,5 @@
-import { Express } from "express";
 import passport from "passport";
+import { Express } from "express";
 import LocalStrategy from "passport-local";
 import JWTStrategy, { ExtractJwt } from "passport-jwt";
 import { isEmail } from "../utils/validators";
@@ -37,7 +37,7 @@ export const configurePassport = async (app: Express) => {
         session: false,
       },
       async (email, password, done) => {
-        const field: UserLocatableColumns = isEmail(email) ? "email" : "";
+        const field: UserLocatableColumns = isEmail(email) ? "email" : "username";
 
         const [user] = await users.find(field, email);
         if (!user) {
@@ -48,7 +48,7 @@ export const configurePassport = async (app: Express) => {
           done(null, false);
         } else {
           delete user.password;
-          done(null, false);
+          done(null, user);
         }
       }
     )

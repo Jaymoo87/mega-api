@@ -14,17 +14,17 @@ registerRouter.post("/", async (req, res) => {
   const { name, email, username, password } = req.body;
   const newUser = { name, email, username, password };
 
+  if (hasMissingData(newUser, res)) return Error;
+  if (!isEmailFormat(email, res)) return Error;
+  if (!isUserNameFormat(username, res)) return Error;
   console.log(newUser);
-  // if (hasMissingData(newUser, res)) return;
-  // if (!isEmailFormat(email, res)) return;
-  // if (!isUserNameFormat(username, res)) return;
 
   try {
     const id = v4();
     newUser.password = await hash(password);
-    const token = sign({ id, email, name, roles: ["user"] });
 
     await users.register({ id, ...newUser });
+    const token = sign({ id, email, name, roles: ["user"] });
 
     return res.status(201).json({ id, message: "Registered successfully", token });
   } catch (error) {
