@@ -28,6 +28,7 @@ todoRouter.post("/", async (req, res) => {
   try {
     const newItem = { id, userid: req.user.id, content };
     await Items.create(newItem);
+    res.status(201).json({ message: "Item created", id });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: " server fucked" });
